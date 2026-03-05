@@ -1,13 +1,13 @@
 import streamlit as st
 import requests
 
-st.title("Medical RAG Assistant")
+st.title("Paper Assistant")
 
 st.divider()  # visual separator
 
 # --- Section 1: Upload PDF (optional) ---
 st.header("Upload a PDF (optional)")
-pdf = st.file_uploader("Upload your own reference document", max_upload_size=10, accept_multiple_files=False, type="pdf")
+pdf = st.file_uploader("Upload the paper you have a certain question about it and then just ask!", max_upload_size=10, accept_multiple_files=False, type="pdf")
 
 if pdf is not None:
     if st.button("Ingest PDF"):
@@ -25,7 +25,7 @@ st.divider()  # visual separator
 st.header("Ask a Question")
 user_input = st.text_area(
     "Your question:", 
-    placeholder="Enter your medical or programming question here...",
+    placeholder="Enter your question here...",
     help="You can drag the bottom-right corner to resize this box."
 )
 
