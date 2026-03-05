@@ -1,0 +1,17 @@
+# Environment
+.env
+venv/
+
+# Vector store (large, regeneratable)
+chroma_db/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Data (optional - PDFs can be large)
+data/
+
+# MLflow
+mlruns/
