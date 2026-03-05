@@ -7,8 +7,9 @@ from langchain_community.vectorstores import Chroma
 
 load_dotenv()
 
-CHROMA_PATH = "chroma_db"
-DATA_PATH = "data"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CHROMA_PATH = os.path.join(BASE_DIR, "chroma_db")
+DATA_PATH = os.path.join(BASE_DIR, "data")
 
 def load_pdfs(data_path: str):
     documents = []

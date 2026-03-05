@@ -13,7 +13,8 @@ config = dotenv_values(".env")  # add this near the top of the file
 
 load_dotenv()
 
-CHROMA_PATH = "chroma_db"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # project root
+CHROMA_PATH = os.path.join(BASE_DIR, "chroma_db")
 
 def load_vectorstore():
     embeddings = HuggingFaceEmbeddings(
