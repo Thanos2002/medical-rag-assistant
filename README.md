@@ -1,5 +1,5 @@
 # Paper RAG Assistant
-A production-ready RAG system for medical research papers using LangChain, ChromaDB, and DeepSeek via OpenRouter.
+A production-ready RAG system for that ansewrs your questions about your research papers accurately using LangChain, ChromaDB, and Gemini.
 
 ## Stack
 - LangChain (LCEL) + ChromaDB + HuggingFace Embeddings
