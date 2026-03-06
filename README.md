@@ -1,10 +1,10 @@
-# Medical RAG Assistant
+# Paper RAG Assistant
 A production-ready RAG system for medical research papers using LangChain, ChromaDB, and DeepSeek via OpenRouter.
 
 ## Stack
 - LangChain (LCEL) + ChromaDB + HuggingFace Embeddings
-- DeepSeek via OpenRouter API
-- FastAPI + Streamlit (coming soon)
+- Gemini API
+- FastAPI + Streamlit + MLflow
 
 ## Setup
 ```
