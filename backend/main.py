@@ -117,7 +117,8 @@ async def query(request: QueryRequest, background_tasks: BackgroundTasks):
     sources = [
         {
             "page": doc.metadata.get("page", "?"),
-            "source": os.path.basename(doc.metadata.get("source", "?"))
+            "source": os.path.basename(doc.metadata.get("source", "?")),
+            "content": doc.page_content  # Send the actual text snippet
         }
         for doc in source_docs
     ]

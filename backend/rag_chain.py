@@ -78,11 +78,13 @@ The system has access to the following documents: {doc_list_str}
 Below are headers and excerpts from these documents. 
 Your task is to answer the question accurately, distinguishing between information from different sources.
 
-### GUIDELINES:
-1. **Identify Documents:** If the question refers to "those papers" or "both", use the document headers and context provided for ALL papers listed above.
-2. **Attribution:** Always state which document (by filename) provided the information.
-3. **Synthesis:** Contrast findings between documents where relevant.
-4. **Missing Info:** If context for one paper is insufficient for the question, be honest and state what information is missing for THAT specific paper.
+### FORMATTING GUIDELINES:
+1. **Structure:** Use clear markdown formatting. Use bolding for key terms and bullet points for lists of findings.
+2. **Mathematics:** Use **LaTeX** for all mathematical equations, formulas, and statistical notation (e.g., use `$p < 0.05$` or `$$E=mc^2$$`).
+3. **Citations:** Use numerical citations in the format [1], [2], etc., to refer to the specific excerpts provided in the "RELEVANT EXCERPTS" section below.
+4. **Attribution:** In addition to [1], mention the document name when introducing a new study or findings.
+4. **Synthesis:** Contrast findings between documents where relevant.
+5. **Missing Info:** If context for one paper is insufficient for the question, be honest and state what information is missing for THAT specific paper.
 
 --- DOCUMENT HEADERS (FIRST CHUNKS) ---
 {{doc_headers}}
@@ -116,11 +118,13 @@ Answer:""")
             docs_by_source[source].append(doc)
 
         formatted_parts = []
+        global_excerpt_count = 1
         for source, source_docs in docs_by_source.items():
             formatted_parts.append(f"\nDOCUMENT: {source}")
-            for i, doc in enumerate(source_docs):
+            for doc in source_docs:
                 page = doc.metadata.get("page", "?")
-                formatted_parts.append(f"[Excerpt {i+1}, Page {page}]:\n{doc.page_content}")
+                formatted_parts.append(f"[Excerpt {global_excerpt_count}, Page {page}]:\n{doc.page_content}")
+                global_excerpt_count += 1
             formatted_parts.append("-" * 20)
         return "\n".join(formatted_parts)
 

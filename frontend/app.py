@@ -55,14 +55,44 @@ with st.sidebar:
 # --- Main Chat Interface ---
 st.title("Paper Assistant")
 
-# Display chat history
-for message in st.session_state.messages:
+# Custom CSS for better formatting
+st.markdown("""
+<style>
+    .source-box {
+        background-color: #f0f2f6;
+        padding: 10px;
+        border-radius: 5px;
+        border-left: 5px solid #ffa421;
+        margin-bottom: 10px;
+    }
+    .source-header {
+        font-weight: bold;
+        color: #ffa421;
+        margin-bottom: 5px;
+    }
+    .source-content {
+        font-size: 0.9rem;
+        font-style: italic;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+def display_message(message):
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
-        if "sources" in message:
-            with st.expander("View Sources"):
-                for source in message["sources"]:
-                    st.write(f"📄 Page {source['page']} — {source['source']}")
+        if "sources" in message and message["sources"]:
+            with st.expander("View Supporting Evidence"):
+                for i, source in enumerate(message["sources"]):
+                    st.markdown(f"""
+                    <div class="source-box">
+                        <div class="source-header">[{i+1}] {source['source']} — Page {source['page']}</div>
+                        <div class="source-content">"{source.get('content', 'No content available')}"</div>
+                    </div>
+                    """, unsafe_allow_html=True)
+
+# Display chat history
+for message in st.session_state.messages:
+    display_message(message)
 
 # Chat input
 if prompt := st.chat_input("Ask a medical question..."):
@@ -90,10 +120,16 @@ if prompt := st.chat_input("Ask a medical question..."):
                         answer = data["answer"]
                         sources = data["sources"]
                         
+                        # Display the new message immediately
                         st.markdown(answer)
-                        with st.expander("View Sources"):
-                            for source in sources:
-                                st.write(f"📄 Page {source['page']} — {source['source']}")
+                        with st.expander("View Supporting Evidence"):
+                            for i, source in enumerate(sources):
+                                st.markdown(f"""
+                                <div class="source-box">
+                                    <div class="source-header">[{i+1}] {source['source']} — Page {source['page']}</div>
+                                    <div class="source-content">"{source.get('content', 'No content available')}"</div>
+                                </div>
+                                """, unsafe_allow_html=True)
                         
                         # Save to history
                         st.session_state.messages.append({
